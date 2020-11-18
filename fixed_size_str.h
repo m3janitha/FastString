@@ -13,14 +13,14 @@ namespace fls
 	public:
 		constexpr basic_str() noexcept {}
 
-		constexpr basic_str(const CharT* str) noexcept
+		constexpr basic_str(const CharT* str)
 			:active_length_(max_length)
 		{
 			active_length_ = std::min(Traits::length(str), max_length);
 			std::copy(str, str + active_length_, buffer_);
 		}
 
-		constexpr basic_str(const CharT* str, std::size_t length) noexcept
+		constexpr basic_str(const CharT* str, std::size_t length)
 		{
 			active_length_ = std::min(length, max_length);
 			std::copy(str, str + active_length_, buffer_);
@@ -33,9 +33,9 @@ namespace fls
 			return std::string_view(buffer_, active_length_ + 1);
 		}
 
-		constexpr auto length() const { return active_length_; }
+		constexpr auto length() const noexcept { return active_length_; }
 
-		constexpr auto max_size() const { return max_length; }
+		constexpr auto max_size() const noexcept { return max_length; }
 
 		constexpr void reset() noexcept
 		{
