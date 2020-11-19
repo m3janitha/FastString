@@ -36,13 +36,29 @@ namespace fls
 
 		constexpr auto max_size() const noexcept { return max_length; }
 
-		constexpr void reset() noexcept
+		constexpr auto empty() const noexcept { return active_length_ == 0; }
+
+		constexpr void clear() noexcept
 		{
 			active_length_ = 0;
 			buffer_[0] = '\0';
 		}
 
-		void append(const CharT* str) noexcept
+		constexpr void reset(const CharT* str)
+		{
+			active_length_ = std::min(Traits::length(str), max_length);
+			std::copy(str, str + active_length_, buffer_);
+			buffer_[active_length_] = '\0';
+		}
+
+		constexpr void reset(const CharT* str, std::size_t length)
+		{
+			active_length_ = std::min(length, max_length);
+			std::copy(str, str + active_length_, buffer_);
+			buffer_[active_length_] = '\0';
+		}
+
+		constexpr void append(const CharT* str) noexcept
 		{
 			auto to_copy = std::min(Traits::length(str), (max_length - active_length_));
 			std::memcpy(buffer_ + active_length_, str, to_copy);
