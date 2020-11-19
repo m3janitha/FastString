@@ -14,15 +14,14 @@ namespace fls
 		constexpr basic_str() noexcept {}
 
 		constexpr basic_str(const CharT* str)
-			:active_length_(max_length)
+			: active_length_(std::min(Traits::length(str), max_length))
 		{
-			active_length_ = std::min(Traits::length(str), max_length);
 			std::copy(str, str + active_length_, buffer_);
 		}
 
 		constexpr basic_str(const CharT* str, std::size_t length)
+			: active_length_(std::min(length, max_length))
 		{
-			active_length_ = std::min(length, max_length);
 			std::copy(str, str + active_length_, buffer_);
 		}
 
@@ -75,17 +74,17 @@ namespace fls
 	};
 
 	template <std::size_t max_length>
-	using fixed_size_str = fls::basic_str<char, max_length>;
+	using fixed_size_str = basic_str<char, max_length>;
 
 	template <std::size_t max_length>
-	using fixed_size_wstr = fls::basic_str<wchar_t, max_length>;
+	using fixed_size_wstr = basic_str<wchar_t, max_length>;
 
 	template <std::size_t max_length>
-	using fixed_size_u8str = fls::basic_str<char8_t, max_length>;
+	using fixed_size_u8str = basic_str<char8_t, max_length>;
 
 	template <std::size_t max_length>
-	using fixed_size_u16str = fls::basic_str<char16_t, max_length>;
+	using fixed_size_u16str = basic_str<char16_t, max_length>;
 
 	template <std::size_t max_length>
-	using fixed_size_u32str = fls::basic_str<char32_t, max_length>;
+	using fixed_size_u32str = basic_str<char32_t, max_length>;
 }
