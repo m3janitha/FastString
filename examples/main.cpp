@@ -1,43 +1,61 @@
-#include "include/fixed_size_str.h"
+#include <iostream>
+#include <include/fixed_size_str.h>
 
 int main()
 {
     /* define types */
-    using string8 = fls::fixed_size_str<7>;
-    using string64 = fls::fixed_size_str<63>;
+    using string8 = fss::fixed_size_str<7>;
+    using string64 = fss::fixed_size_str<63>;
 
     /* default construction */
     constexpr string8 a{};
     constexpr auto a_length = a.length();               // a_length is 0
+    constexpr auto a_empty = a.empty();                 // a_empty is true
     constexpr auto a_max_size = a.max_size();           // a_max_size is 7
 
+    /* copy construction */
+    auto a_copy = a;
+
+    /* move construction */
+    auto a_move = std::move(a_copy);
+
+    /* copy assignment */
+    constexpr string8 b("1234", 4);                     // b is "1234"
+    string8 c("lmnopqrstuvxyz");                        // c is "lmnopqr"
+    string8 d("56789");                                      // d is "789". rest is truncated.
+    c = b;                                              // now c is "1234"
+
+    /* move assingment */
+    c = std::move(d);                                   // c is "56789"
+
     /* using with string view */
-    constexpr string8 b("abcdefghij", 10);              // truncated. b is "abcdefg";
-    constexpr auto b_sub_str = b.str().substr(0, 2);    // b_sub_str is "ab"
-    constexpr auto b_length = b.length();               // b_length is 7
+    constexpr string8 e("abcdefghij", 10);              // truncated. e is "abcdefg";
+    constexpr auto e_sub_str = e.str().substr(0, 2);    // e_sub_str is "ab"
+    constexpr auto e_length = e.length();               // e_length is 7
 
     /* comparison */
-    constexpr string8 c("abcd");
-    constexpr string8 d("abcd");
-    constexpr string8 e("abcf");
-    constexpr auto f = (c == d);        // true 
-    constexpr auto g = (d == e);        // false
+    constexpr string8 f("abcd");
+    constexpr string8 g("abcd");
+    constexpr string8 h("abcf");
+    constexpr auto i = (f == g);        // i is true 
+    constexpr auto j = (g == h);        // j is false
 
     /* append */
-    string8 h("abc");
-    h.append("d");                      // h is "abcd"
-    h.append("efghi", 5);               // h is "abcdefg". rest is truncated
-
-    /* reset */
-    h.reset("1234");                    // h is "1234";
-    auto h_length = h.length();         // h_length is 4
+    string8 k("abc");                   // k is "abc"
+    k.append("d");                      // k is "abcd"
+    k.append("efghi", 5);               // k is "abcdefg". rest is truncated
 
     /* clear */
-    h.clear();                          // h is empty() "";
+    k.clear();                          // k is empty() ""
+    auto k_empty = k.empty();           // k_empty is true
 
     /* reset */
-    h.reset("abcd");                    // h is "abcd"
-    h.reset("xyz", 3);                  // h is "xyz"
+    k.reset("1234");                    // k is "1234";
+    auto k_length = k.length();         // k_length is 4
+    k.reset("xyz", 3);                  // k is "xyz"
+
+    /* stream operator */
+    std::cout << k << std::endl;
 
     /* use for member variables */
     struct test_struct

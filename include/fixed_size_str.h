@@ -2,8 +2,9 @@
 
 #include <string_view>
 #include <algorithm>
+#include <ostream>
 
-namespace fls
+namespace fss
 {
 	template <class CharT
 		, std::size_t max_length
@@ -11,7 +12,7 @@ namespace fls
 		class basic_str
 	{
 	public:
-		constexpr basic_str() noexcept {}
+		constexpr basic_str() noexcept = default;
 
 		constexpr basic_str(const CharT* str)
 			: active_length_(std::min(Traits::length(str), max_length))
@@ -24,6 +25,8 @@ namespace fls
 		{
 			std::copy(str, str + active_length_, buffer_);
 		}
+
+		constexpr basic_str(const basic_str& rhs) = default;
 
 		constexpr const CharT* c_str() const noexcept { return buffer_; }
 
@@ -58,7 +61,7 @@ namespace fls
 			buffer_[active_length_] = '\0';
 		}
 
-		constexpr void append(const CharT* str) noexcept
+		void append(const CharT* str) noexcept
 		{
 			auto to_copy = std::min(Traits::length(str), (max_length - active_length_));
 			std::memcpy(buffer_ + active_length_, str, to_copy);
@@ -103,4 +106,12 @@ namespace fls
 
 	template <std::size_t max_length>
 	using fixed_size_u32str = basic_str<char32_t, max_length>;
+}
+
+template <class CharT
+	, std::size_t max_length
+	, class Traits = std::char_traits<CharT>>
+	inline std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, const fss::basic_str<CharT, max_length>& str)
+{
+	return os << str.c_str();
 }
