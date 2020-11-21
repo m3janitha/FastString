@@ -111,7 +111,8 @@ namespace fss
 template <class CharT
 	, std::size_t max_length
 	, class Traits = std::char_traits<CharT>>
-	inline std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, const fss::basic_str<CharT, max_length>& str)
+	inline std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT
+		, Traits>& os, const fss::basic_str<CharT, max_length>& str)
 {
 	return os << str.c_str();
 }

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <include/fixed_size_str.h>
+#include <fixed_size_str.h>
 
 int main()
 {
