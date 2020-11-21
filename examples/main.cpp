@@ -14,15 +14,16 @@ int main()
     constexpr auto a_max_size = a.max_size();           // a_max_size is 7
 
     /* copy construction */
+    constexpr auto a_copy_c = a;
     auto a_copy = a;
 
     /* move construction */
     auto a_move = std::move(a_copy);
 
     /* copy assignment */
-    constexpr string8 b("1234", 4);                     // b is "1234"
-    string8 c("lmnopqrstuvxyz");                        // c is "lmnopqr"
-    string8 d("56789");                                      // d is "789". rest is truncated.
+    constexpr string8 b{ "1234", 4 };                   // b is "1234"
+    string8 c{ "lmnopqrstuvxyz" };                      // c is "lmnopqr"
+    string8 d{ "56789" };                               // d is "789". rest is truncated.
     c = b;                                              // now c is "1234"
 
     /* move assingment */
@@ -37,32 +38,32 @@ int main()
     constexpr string8 f("abcd");
     constexpr string8 g("abcd");
     constexpr string8 h("abcf");
-    constexpr auto i = (f == g);        // i is true 
-    constexpr auto j = (g == h);        // j is false
+    constexpr auto i = (f == g);                        // i is true 
+    constexpr auto j = (g == h);                        // j is false
 
     /* append */
-    string8 k("abc");                   // k is "abc"
-    k.append("d");                      // k is "abcd"
-    k.append("efghi", 5);               // k is "abcdefg". rest is truncated
+    string8 k("abc");                                   // k is "abc"
+    k.append("d");                                      // k is "abcd"
+    k.append("efghi", 5);                               // k is "abcdefg". rest is truncated
 
     /* clear */
-    k.clear();                          // k is empty() ""
-    auto k_empty = k.empty();           // k_empty is true
+    k.clear();                                          // k is empty() ""
+    auto k_empty = k.empty();                           // k_empty is true
 
     /* reset */
-    k.reset("1234");                    // k is "1234";
-    auto k_length = k.length();         // k_length is 4
-    k.reset("xyz", 3);                  // k is "xyz"
+    k.reset("1234");                                    // k is "1234";
+    auto k_length = k.length();                         // k_length is 4
+    k.reset("xyz", 3);                                  // k is "xyz"
 
     /* stream operator */
     std::cout << k << std::endl;
 
-    /* use for member variables */
+    /* using for member variables */
     struct test_struct
     {
         std::uint32_t a_{};
         std::uint64_t b_{};
-        string8 c_{ "abcd" };           // uses only 8 + 4 bytes and created in stack
+        string8 c_{ "abcd" };                           // uses only 8 + 4 bytes in stack
 
         constexpr auto get_c() const { return c_.str(); }
         constexpr void set_c(const char* str) { c_.reset(str); }

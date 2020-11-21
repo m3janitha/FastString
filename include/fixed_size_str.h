@@ -50,29 +50,25 @@ namespace fss
 		constexpr void reset(const CharT* str)
 		{
 			active_length_ = std::min(Traits::length(str), max_length);
-			std::copy(str, str + active_length_, buffer_);
-			buffer_[active_length_] = '\0';
+			reset_(str, active_length_);
 		}
 
 		constexpr void reset(const CharT* str, std::size_t length)
 		{
 			active_length_ = std::min(length, max_length);
-			std::copy(str, str + active_length_, buffer_);
-			buffer_[active_length_] = '\0';
+			reset_(str, active_length_);
 		}
 
-		void append(const CharT* str) noexcept
+		constexpr void append(const CharT* str)
 		{
 			auto to_copy = std::min(Traits::length(str), (max_length - active_length_));
-			std::memcpy(buffer_ + active_length_, str, to_copy);
-			active_length_ += to_copy;
+			append_(str, to_copy);
 		}
 
-		void append(const CharT* str, std::size_t length) noexcept
+		constexpr void append(const CharT* str, std::size_t length)
 		{
 			auto to_copy = std::min(length, (max_length - active_length_));
-			std::memcpy(buffer_ + active_length_, str, to_copy);
-			active_length_ += to_copy;
+			append_(str, to_copy);
 		}
 
 		constexpr bool operator==(const basic_str& rhs) const
@@ -88,6 +84,18 @@ namespace fss
 		}
 
 	private:
+		constexpr void reset_(const CharT* str, std::size_t length)
+		{
+			std::copy(str, str + length, buffer_);
+			buffer_[length] = '\0';
+		}
+
+		constexpr void append_(const CharT* str, std::size_t to_copy)
+		{
+			std::copy(str, str + to_copy, buffer_ + active_length_);
+			active_length_ += to_copy;
+		}
+
 		std::size_t active_length_{ 0 };
 		CharT buffer_[max_length + 1]{};
 	};
