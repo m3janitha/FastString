@@ -2,7 +2,7 @@
 Cache friendly, efficient, fixed size string implementation with **constexpr noexcept** constructors and accessors. **fixed_size_string** improves memory locality and efficiency of strings by  avoiding heap allocations. 
 
 ## Abstract
-**std::string** allocates heap memory for strings longer for SSO and it reduces memory locality. **fixed_size_string** is a thin wrapper around a plain char array with **constexpr noexcept** constructors and accessors for fast string manipulations in stack. **fixed_size_string** can be created with compile time defined maximum length and can be easily used with **std::string_view** for further operations. **fixed_size_string** is a fast efficient alternative for plain char arrays in member variables. 
+**std::string** allocates heap memory for strings not qulified for SSO (small string optimization) and it reduces memory locality. **fixed_size_string** is a thin wrapper around a plain char array with **constexpr noexcept** constructors and accessors for fast string manipulations in stack. **fixed_size_string** can be created with compile time defined maximum length and can be easily used with **std::string_view** for further operations. **fixed_size_string** is a fast efficient alternative for plain char arrays in member variables. 
 
 ## Requirements	
 * C++20 compatible compiler (constexpr std::copy is required for constexpr constructors)
