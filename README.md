@@ -9,13 +9,16 @@ Cache friendly, efficient, fixed size string implementation with **constexpr noe
 * Works with **Microsoft (R) C/C++ Optimizing Compiler Version 19.27.29111** or above 
 
 ## Build
+```console
+mkdir build && cd build && cmake .. && make
+```
 
 ## Author
-Janitha Meedeniya
+[Janitha Meedeniya](https://www.linkedin.com/in/janitha-meedeniya) 
 
 ## Usage
 see bellow
-
+```cpp
     /* define types */
     using string8 = fss::fixed_size_str<7>;
     using string64 = fss::fixed_size_str<63>;
@@ -84,4 +87,5 @@ see bellow
     auto test_struct_size = sizeof(test_struct);
     constexpr test_struct t;
     constexpr auto t_a = t.get_c();
+```
 
