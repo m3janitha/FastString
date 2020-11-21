@@ -94,6 +94,7 @@ namespace fss
 		{
 			std::copy(str, str + to_copy, buffer_ + active_length_);
 			active_length_ += to_copy;
+			buffer_[active_length_] = '\0';
 		}
 
 		std::size_t active_length_{ 0 };

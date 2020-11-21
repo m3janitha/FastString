@@ -30,19 +30,19 @@ int main()
     c = std::move(d);                                   // c is "56789"
 
     /* using with string view */
-    constexpr string8 e("abcdefghij", 10);              // truncated. e is "abcdefg";
+    constexpr string8 e{ "abcdefghij", 10 };            // truncated. e is "abcdefg";
     constexpr auto e_sub_str = e.str().substr(0, 2);    // e_sub_str is "ab"
     constexpr auto e_length = e.length();               // e_length is 7
 
     /* comparison */
-    constexpr string8 f("abcd");
-    constexpr string8 g("abcd");
-    constexpr string8 h("abcf");
+    constexpr string8 f{ "abcd" };
+    constexpr string8 g{ "abcd" };
+    constexpr string8 h{ "abcf" };
     constexpr auto i = (f == g);                        // i is true 
     constexpr auto j = (g == h);                        // j is false
 
     /* append */
-    string8 k("abc");                                   // k is "abc"
+    string8 k{ "abc" };                                 // k is "abc"
     k.append("d");                                      // k is "abcd"
     k.append("efghi", 5);                               // k is "abcdefg". rest is truncated
 
