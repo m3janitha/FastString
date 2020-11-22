@@ -55,8 +55,15 @@ int main()
     auto k_length = k.length();                         // k_length is 4
     k.reset("xyz", 3);                                  // k is "xyz"
 
+    /* remove_suffix */
+    string8 l{ "1234567" };
+    l.remove_suffix(3);                                 // l is "1234"
+
+    /* remove_prefix */
+    l.remove_prefix(2);                                 // l is "34"
+
     /* stream operator */
-    std::cout << k << std::endl;
+    std::cout << l << std::endl;
 
     /* using for member variables */
     struct test_struct

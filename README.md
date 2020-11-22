@@ -17,9 +17,12 @@ mkdir build && cd build && cmake .. && make
 ```
 
 ## Performance Analysis
+* comparison of compiler output between **fixed_size_string** and **std::string** using https://godbolt.org/
 * compiler version - x86-64 gcc-trunk
-* comparison between **fixed_size_string** and **std::string** using https://godbolt.org/
-![image](https://github.com/m3janitha/fixed_size_string/blob/master/compiler_analysis.png)
+* test scenario - function creates string from given char pointer and return length of the created string
+
+compiler output
+![image](https://github.com/m3janitha/fixed_size_string/blob/master/compiler_analysis.jpg)
 
 ## Usage
 see bellow
@@ -76,8 +79,15 @@ see bellow
     auto k_length = k.length();                         // k_length is 4
     k.reset("xyz", 3);                                  // k is "xyz"
 
+    /* remove_suffix */
+    string8 l{ "1234567" };
+    l.remove_suffix(3);                                 // l is "1234"
+
+    /* remove_prefix */
+    l.remove_prefix(2);                                 // l is "34"
+
     /* stream operator */
-    std::cout << k << std::endl;
+    std::cout << l << std::endl;
 
     /* using for member variables */
     struct test_struct

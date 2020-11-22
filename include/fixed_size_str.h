@@ -69,6 +69,19 @@ namespace fss
 			append_(str, to_copy);
 		}
 
+		constexpr void remove_prefix(std::size_t length)
+		{
+			std::copy(buffer_ + length, buffer_ + active_length_, buffer_);
+			active_length_ -= length;
+			buffer_[active_length_] = '\0';
+		}
+
+		constexpr void remove_suffix(std::size_t length) noexcept
+		{
+			active_length_ = active_length_ - length;
+			buffer_[active_length_] = '\0';
+		}
+
 		constexpr bool operator==(const basic_str& rhs) const
 		{
 			return (max_size() == rhs.max_size())
