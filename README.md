@@ -19,9 +19,8 @@ mkdir build && cd build && cmake .. && make
 ## Performance Analysis
 * comparison of compiler output between **fixed_size_string** and **std::string** using https://godbolt.org/
 * compiler version - x86-64 gcc-trunk
-* test scenario - function creates string from given char pointer and return length of the created string
+* test scenario - function creates string from given char pointer and returns the length of the created string
 
-compiler output
 ![image](https://github.com/m3janitha/fixed_size_string/blob/master/compiler_analysis.jpg)
 
 ## Usage
