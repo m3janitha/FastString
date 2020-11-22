@@ -6,7 +6,9 @@ Cache friendly, efficient, fixed size string implementation with **constexpr noe
 
 ## Requirements	
 * C++20 compatible compiler (constexpr std::copy is required for constexpr constructors)
-* Works with **Microsoft (R) C/C++ Optimizing Compiler Version 19.27.29111** or above
+* Works with 
+   * **Microsoft (R) C/C++ Optimizing Compiler Version 19.27.29111** or above
+   * **x86-64 gcc-trunk**
 
 ## Author
 [Janitha Meedeniya](https://www.linkedin.com/in/janitha-meedeniya) 
