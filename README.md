@@ -37,7 +37,7 @@ mkdir build && cd build && cmake .. && make
         ```
     * using **fixed_size_string**
         ```cpp
-        constexpr auto f(const char* str)
+        constexpr auto f(const char* str) noexcept
         {
             using string64 = fss::fixed_size_str<63>;
             string64 a{str};
