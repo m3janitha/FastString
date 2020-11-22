@@ -16,6 +16,11 @@ Cache friendly, efficient, fixed size string implementation with **constexpr noe
 mkdir build && cd build && cmake .. && make
 ```
 
+## performance analysis
+* used https://godbolt.org/
+* compiler version - x86-64 gcc-trunk
+![image](https://github.com/m3janitha/fixed_size_string/blob/master/include/compiler_analysis.png)
+
 ## Usage
 see bellow
 ```cpp

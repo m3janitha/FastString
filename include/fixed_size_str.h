@@ -26,8 +26,6 @@ namespace fss
 			std::copy(str, str + active_length_, buffer_);
 		}
 
-		constexpr basic_str(const basic_str& rhs) = default;
-
 		constexpr const CharT* c_str() const noexcept { return buffer_; }
 
 		constexpr std::string_view str() const noexcept
