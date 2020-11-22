@@ -20,6 +20,35 @@ mkdir build && cd build && cmake .. && make
 * comparison of compiler output between **fixed_size_string** and **std::string** using https://godbolt.org/
 * compiler version - x86-64 gcc-trunk
 * test scenario - function creates string from given char pointer and returns the length of the created string
+    * using **std::string**
+        ```cpp
+        auto f(const char* str)
+        {
+            std::string a{str};
+            return a.length();
+        }
+
+        void g(const char* str)
+        {
+            volatile auto x = f(str);
+        }
+        ```
+    * using **fixed_size_string**
+        ```cpp
+        constexpr auto f(const char* str)
+        {
+            using string64 = fss::fixed_size_str<63>;
+            string64 a{str};
+            return a.length(); 
+        }
+
+        void g(const char* str)
+        {
+            volatile auto x = f(str);
+        }
+        ```
+        
+ **compiler output**
 
 ![image](https://github.com/m3janitha/fixed_size_string/blob/master/compiler_analysis.jpg)
 
