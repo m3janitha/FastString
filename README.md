@@ -20,7 +20,7 @@ mkdir build && cd build && cmake .. && make
 
 ## Performance Analysis
 * Compiler version: **x86-64 gcc-trunk**
-* Test scenario - Function creates a string from a given char pointer and return length of the created string. Length is returned and assigned to a volatile variable to avoid compiler optimizing out the construction of the variable.* comparison of compiler output between **fixed_size_string** and **std::string** using https://godbolt.org/
+* Test scenario - Function creates a string from a given char pointer and return length of the created string. Length is returned and assigned to a volatile variable to avoid compiler optimizing out the construction of the variable.
 * Test code 
     * Using **std::string**
         ```cpp
