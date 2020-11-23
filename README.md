@@ -108,12 +108,12 @@ Refer to below example code
     k.reset("xyz", 3);                                  // k is "xyz"
 
     /* remove_suffix */
-	/* there is no boundary check. similar to string_view */
+    /* there is no boundary check. similar to string_view */
     string8 l{ "1234567" };
     l.remove_suffix(3);                                 // l is "1234"
 
     /* remove_prefix */
-	/* there is no boundary check. similar to string_view */
+    /* there is no boundary check. similar to string_view */
     l.remove_prefix(2);                                 // l is "34"
 
     /* stream operator */
