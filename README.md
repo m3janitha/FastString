@@ -19,10 +19,10 @@ mkdir build && cd build && cmake .. && make
 ```
 
 ## Performance Analysis
-* comparison of compiler output between **fixed_size_string** and **std::string** using https://godbolt.org/
-* compiler version - x86-64 gcc-trunk
-* test scenario - function creates string from given char pointer and returns the length of the created string
-    * using **std::string**
+* Compiler version: **x86-64 gcc-trunk**
+* Test scenario - Function creates a string from a given char pointer and return length of the created string. Length is returned and assigned to a volatile variable to avoid compiler optimizing out the construction of the variable.* comparison of compiler output between **fixed_size_string** and **std::string** using https://godbolt.org/
+* Test code 
+    * Using **std::string**
         ```cpp
         auto f(const char* str)
         {
@@ -35,7 +35,7 @@ mkdir build && cd build && cmake .. && make
             volatile auto x = f(str);
         }
         ```
-    * using **fixed_size_string**
+    * Using **fixed_size_string**. Note use of **constexpr** and **noexcept**
         ```cpp
         constexpr auto f(const char* str) noexcept
         {
@@ -48,14 +48,12 @@ mkdir build && cd build && cmake .. && make
         {
             volatile auto x = f(str);
         }
-        ```
-        
- **compiler output**
-
-![image](https://github.com/m3janitha/fixed_size_string/blob/master/compiler_analysis.jpg)
+        ```        
+* Comparison of compiler output between **std::string** and **fixed_size_string** using https://godbolt.org/
+	![image](https://github.com/m3janitha/fixed_size_string/blob/master/compiler_analysis.jpg)
 
 ## Usage
-see bellow
+Refer to below example code
 ```cpp
     /* define types */
     using string8 = fss::fixed_size_str<7>;
@@ -110,14 +108,16 @@ see bellow
     k.reset("xyz", 3);                                  // k is "xyz"
 
     /* remove_suffix */
+	/* there is no boundary check. similar to string_view */
     string8 l{ "1234567" };
     l.remove_suffix(3);                                 // l is "1234"
 
     /* remove_prefix */
+	/* there is no boundary check. similar to string_view */
     l.remove_prefix(2);                                 // l is "34"
 
     /* stream operator */
-    std::cout << l << std::endl;
+    std::cout << l << std::endl;						// outout is "34"
 
     /* using for member variables */
     struct test_struct
