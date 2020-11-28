@@ -28,9 +28,13 @@ namespace fss
 
 		constexpr const CharT* c_str() const noexcept { return buffer_; }
 
-		constexpr std::string_view str() const noexcept
+		constexpr const CharT* data() const noexcept { return buffer_; }
+
+		constexpr CharT* data() noexcept { return buffer_; }
+
+		constexpr std::basic_string_view<CharT, Traits> str() const noexcept
 		{
-			return std::string_view(buffer_, active_length_ + 1);
+			return std::basic_string_view<CharT, Traits>(buffer_, active_length_ + 1);
 		}
 
 		constexpr auto length() const noexcept { return active_length_; }
@@ -82,6 +86,7 @@ namespace fss
 			buffer_[active_length_] = '\0';
 		}
 
+		/* implemented as a member to avoid implicit conversion */
 		constexpr bool operator==(const basic_str& rhs) const
 		{
 			return (max_size() == rhs.max_size())
@@ -92,6 +97,12 @@ namespace fss
 		constexpr bool operator!=(const basic_str& rhs) const
 		{
 			return !(*this == rhs);
+		}
+
+		constexpr void swap(basic_str& rhs)
+		{
+			std::swap(active_length_, rhs.active_length_);
+			std::swap(buffer_, rhs.buffer_);
 		}
 
 	private:
@@ -112,6 +123,24 @@ namespace fss
 		CharT buffer_[max_length + 1]{};
 	};
 
+	template <class CharT
+		, std::size_t max_length
+		, class Traits = std::char_traits<CharT>>
+		inline constexpr void swap(const fss::basic_str<CharT, max_length>& lhs
+			, const fss::basic_str<CharT, max_length>& rhs) noexcept
+	{
+		rhs.swap(lhs);
+	}
+
+	template <class CharT
+		, std::size_t max_length
+		, class Traits = std::char_traits<CharT>>
+		inline std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT
+			, Traits>& os, const fss::basic_str<CharT, max_length>& str)
+	{
+		return os << str.c_str();
+	}
+
 	template <std::size_t max_length>
 	using fixed_size_str = basic_str<char, max_length>;
 
@@ -126,13 +155,4 @@ namespace fss
 
 	template <std::size_t max_length>
 	using fixed_size_u32str = basic_str<char32_t, max_length>;
-}
-
-template <class CharT
-	, std::size_t max_length
-	, class Traits = std::char_traits<CharT>>
-	inline std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT
-		, Traits>& os, const fss::basic_str<CharT, max_length>& str)
-{
-	return os << str.c_str();
 }

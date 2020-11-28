@@ -117,7 +117,7 @@ Refer to below example code
     l.remove_prefix(2);                                 // l is "34"
 
     /* stream operator */
-    std::cout << l << std::endl;						// outout is "34"
+    std::cout << l << std::endl;
 
     /* using for member variables */
     struct test_struct
@@ -133,5 +133,9 @@ Refer to below example code
     auto test_struct_size = sizeof(test_struct);
     constexpr test_struct t;
     constexpr auto t_a = t.get_c();
+
+    /* swap */
+    l.swap(k);                                          // l is "xyz" and k is "34"
+    swap(l, k);                                         // l is "34" and k is "xyz"
 ```
 
