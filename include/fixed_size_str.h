@@ -126,8 +126,8 @@ namespace fss
 	template <class CharT
 		, std::size_t max_length
 		, class Traits = std::char_traits<CharT>>
-		inline constexpr void swap(const fss::basic_str<CharT, max_length>& lhs
-			, const fss::basic_str<CharT, max_length>& rhs) noexcept
+		inline constexpr void swap(const basic_str<CharT, max_length>& lhs
+			, const basic_str<CharT, max_length>& rhs) noexcept
 	{
 		rhs.swap(lhs);
 	}
@@ -136,7 +136,7 @@ namespace fss
 		, std::size_t max_length
 		, class Traits = std::char_traits<CharT>>
 		inline std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT
-			, Traits>& os, const fss::basic_str<CharT, max_length>& str)
+			, Traits>& os, const basic_str<CharT, max_length>& str)
 	{
 		return os << str.c_str();
 	}
