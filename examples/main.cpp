@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fixed_size_str.h>
+#include <assert.h>
 
 int main()
 {
@@ -30,7 +31,7 @@ int main()
     c = std::move(d);                                   // c is "56789"
 
     /* using with string view */
-    constexpr string8 e{ "abcdefghij", 10 };            // truncated. e is "abcdefg";
+    constexpr const string8 e{ "abcdefghij", 10 };      // truncated. e is "abcdefg";
     constexpr auto e_sub_str = e.str().substr(0, 2);    // e_sub_str is "ab"
     constexpr auto e_length = e.length();               // e_length is 7
 
@@ -49,10 +50,12 @@ int main()
     /* clear */
     k.clear();                                          // k is empty() ""
     auto k_empty = k.empty();                           // k_empty is true
+    assert(k_empty);
 
     /* reset */
     k.reset("1234");                                    // k is "1234";
     auto k_length = k.length();                         // k_length is 4
+    assert(k_length==4);
     k.reset("xyz", 3);                                  // k is "xyz"
 
     /* remove_suffix */
@@ -78,9 +81,8 @@ int main()
         constexpr void set_c(const char* str) { c_.reset(str); }
     };
 
-    auto test_struct_size = sizeof(test_struct);
     constexpr test_struct t;
-    constexpr auto t_a = t.get_c();
+    constexpr const auto t_a = t.get_c();
 
     /* swap */
     l.swap(k);                                          // l is "xyz" and k is "34"

@@ -1,8 +1,16 @@
-CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
+cmake_minimum_required (VERSION 2.6)
 
-SET(CMAKE_CXX_STANDARD 20)
+project(fixed_size_string)
 
-INCLUDE_DIRECTORIES ("include")
+set(CMAKE_CXX_STANDARD 20)
 
-ADD_EXECUTABLE (examples
+if (MSVC)
+    add_compile_options(/W4 /WX)
+else()
+    add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
+
+include_directories ("include")
+
+add_executable (examples
 	examples/main.cpp)

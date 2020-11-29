@@ -99,7 +99,7 @@ namespace fss
 			return !(*this == rhs);
 		}
 
-		constexpr void swap(basic_str& rhs)
+		constexpr void swap(basic_str& rhs) noexcept
 		{
 			std::swap(active_length_, rhs.active_length_);
 			std::swap(buffer_, rhs.buffer_);
