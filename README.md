@@ -4,14 +4,14 @@
 ## Abstract
 **std::string** allocates heap memory for strings not qualified for **SSO** (small string optimization) and reduces memory locality. **fixed_size_string** is a thin wrapper around a plain char array with **constexpr noexcept** constructors and accessors for fast, in stack string manipulation. **fixed_size_string** is a fast and efficient alternative for **std::string** or **plain char arrays** in low latency applications and can be easily used with **std::string_view** for further operations.
 
+## Author
+[Janitha Meedeniya](https://www.linkedin.com/in/janitha-meedeniya) 
+
 ## Requirements	
 * C++20 compatible compiler (constexpr std::copy is required for constexpr constructors)
 * Works with 
    * **Microsoft (R) C/C++ Optimizing Compiler Version 19.27.29111** or above
    * **x86-64 gcc-trunk**
-
-## Author
-[Janitha Meedeniya](https://www.linkedin.com/in/janitha-meedeniya) 
 
 ## Build
 ```console
