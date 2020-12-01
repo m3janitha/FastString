@@ -1,5 +1,5 @@
 # fixed_size_string
-**Fast, in stack, fixed size** string implementation with **constexpr noexcept** constructors and accessors. *fixed_size_string* improves **memory locality and latency** of strings by avoiding heap allocations.
+**Fast, in stack, fixed size** string implementation with **constexpr noexcept** constructors and accessors. **fixed_size_string** improves **memory locality and latency** of strings by avoiding heap allocations.
 
 ## Abstract
 **std::string** allocates heap memory for strings not qualified for **SSO** (small string optimization) and reduces memory locality. **fixed_size_string** is a thin wrapper around a plain char array with **constexpr noexcept** constructors and accessors for fast, in stack string manipulation. **fixed_size_string** is a fast and efficient alternative for **std::string** or **plain char arrays** in low latency applications and can be easily used with **std::string_view** for further operations.
