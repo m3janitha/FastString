@@ -2,7 +2,10 @@
 
 #include <string_view>
 #include <algorithm>
+#include <string>
+#ifndef FIXED_SIZE_STRING_DISABLE_IOSTREAM
 #include <ostream>
+#endif
 
 namespace fss
 {
@@ -14,16 +17,23 @@ namespace fss
 	public:
 		constexpr basic_str() noexcept = default;
 
-		constexpr basic_str(const CharT* str)
+		template <std::size_t N>
+		/*implicit*/ consteval basic_str(const char (&str)[N]) : active_length_(std::min(N-1, max_length)) {
+			assert(str[N - 1] == '\0');
+			Traits::copy(buffer_, str, active_length_);
+			buffer_[active_length_] = '\0';
+		}
+
+		/*implicit*/ constexpr basic_str(const CharT* str)
 			: active_length_(std::min(Traits::length(str), max_length))
 		{
-			std::copy(str, str + active_length_, buffer_);
+			Traits::copy(buffer_, str, active_length_);
 		}
 
 		constexpr basic_str(const CharT* str, std::size_t length)
 			: active_length_(std::min(length, max_length))
 		{
-			std::copy(str, str + active_length_, buffer_);
+			Traits::copy(buffer_, str, active_length_);
 		}
 
 		constexpr const CharT* c_str() const noexcept { return buffer_; }
@@ -34,7 +44,7 @@ namespace fss
 
 		constexpr std::basic_string_view<CharT, Traits> str() const noexcept
 		{
-			return std::basic_string_view<CharT, Traits>(buffer_, active_length_ + 1);
+			return std::basic_string_view<CharT, Traits>(buffer_, active_length_);
 		}
 
 		constexpr auto length() const noexcept { return active_length_; }
@@ -108,7 +118,7 @@ namespace fss
 	private:
 		constexpr void reset_(const CharT* str, std::size_t length)
 		{
-			std::copy(str, str + length, buffer_);
+			Traits::copy(buffer_, str, length);
 			buffer_[length] = '\0';
 		}
 
@@ -132,6 +142,7 @@ namespace fss
 		rhs.swap(lhs);
 	}
 
+	#ifndef FIXED_SIZE_STRING_DISABLE_IOSTREAM
 	template <class CharT
 		, std::size_t max_length
 		, class Traits = std::char_traits<CharT>>
@@ -140,6 +151,7 @@ namespace fss
 	{
 		return os << str.c_str();
 	}
+	#endif
 
 	template <std::size_t max_length>
 	using fixed_size_str = basic_str<char, max_length>;
