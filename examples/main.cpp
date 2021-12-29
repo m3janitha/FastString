@@ -13,6 +13,9 @@ int main()
     constexpr auto a_length = a.length();               // a_length is 0
     constexpr auto a_empty = a.empty();                 // a_empty is true
     constexpr auto a_max_size = a.max_size();           // a_max_size is 7
+    std::cout << a_length << std::endl;
+    std::cout << a_empty << std::endl;
+    std::cout << a_max_size << std::endl;
 
     /* copy construction */
     constexpr auto a_copy_c = a;
@@ -34,6 +37,7 @@ int main()
     constexpr const string8 e{ "abcdefghij", 10 };      // truncated. e is "abcdefg";
     constexpr auto e_sub_str = e.str().substr(0, 2);    // e_sub_str is "ab"
     constexpr auto e_length = e.length();               // e_length is 7
+    std::cout << e_length << std::endl;
 
     /* comparison */
     constexpr string8 f{ "abcd" };
@@ -41,21 +45,27 @@ int main()
     constexpr string8 h{ "abcf" };
     constexpr auto i = (f == g);                        // i is true 
     constexpr auto j = (g == h);                        // j is false
+    std::cout << i << std::endl;
+    std::cout << j << std::endl;
 
     /* append */
     string8 k{ "abc" };                                 // k is "abc"
     k.append("d");                                      // k is "abcd"
     k.append("efghi", 5);                               // k is "abcdefg". rest is truncated
+    std::cout << k << std::endl;
 
     /* clear */
     k.clear();                                          // k is empty() ""
     auto k_empty = k.empty();                           // k_empty is true
     assert(k_empty);
+    std::cout << k_empty << std::endl;
 
     /* reset */
     k.reset("1234");                                    // k is "1234";
     auto k_length = k.length();                         // k_length is 4
     assert(k_length==4);
+    std::cout << k_length << std::endl;
+
     k.reset("xyz", 3);                                  // k is "xyz"
 
     /* remove_suffix */
