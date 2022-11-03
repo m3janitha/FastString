@@ -11,6 +11,8 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 if (MSVC)
     # warning level 4 and all warnings as errors
     # add_compile_options(/W4 /WX)
+    add_compile_options(/wd2220)
+    #add_compile_definitions(FIXED_SIZE_STRING_DISABLE_IOSTREAM)
 else()
     # lots of warnings and all warnings as errors
     message("setting CMAKE_CXX_FLAGS")
@@ -28,13 +30,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-# set(BENCHMARK_ENABLE_TESTING OFF)
-
-# FetchContent_Declare(
-# 	googlebenchmark
-# 	GIT_REPOSITORY https://github.com/google/benchmark
-# 	GIT_TAG v1.6.0
-# )
-
 add_subdirectory(example)
+add_subdirectory(benchmark)
 add_subdirectory(test)
