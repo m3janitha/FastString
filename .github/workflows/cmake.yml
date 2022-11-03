@@ -27,7 +27,7 @@ jobs:
       # We'll use this as our working directory for all subsequent commands
       run: cmake -E make_directory ${{runner.workspace}}/build
       env:
-        CXX: g++-12
+        CXX: g++-12.2
 
     - name: Configure CMake
       # Use a bash shell so we can use the same syntax for environment variable
