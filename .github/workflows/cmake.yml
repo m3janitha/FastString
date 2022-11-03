@@ -25,7 +25,7 @@ jobs:
       shell: bash
       run: |
            sudo apt update
-           sudo apt install gcc-12.2 g++-12.2
+           sudo apt install gcc-12 g++-12
 
 
     - name: GCC Version 
