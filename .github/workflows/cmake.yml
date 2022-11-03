@@ -25,6 +25,7 @@ jobs:
       shell: bash
       run: |
            sudo apt update
+           apt list --upgradable
            sudo apt-get install gcc-12 g++-12
 
 
