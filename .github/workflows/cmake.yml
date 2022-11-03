@@ -5,8 +5,8 @@ on: [push]
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CC: gcc-12
-  CXX: g++-12
+  CC: gcc-12.2
+  CXX: g++-12.2
   
 jobs:
   build:
