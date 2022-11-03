@@ -10,4 +10,3 @@ foreach( test_sourcefile ${TEST_SOURCES} )
     target_link_libraries(${EXECUTABLE_NAME} GTest::gtest GTest::gtest_main)
     add_test(NAME ${EXECUTABLE_NAME} COMMAND ${EXECUTABLE_NAME})
 endforeach( test_sourcefile ${TEST_SOURCES} )
-
