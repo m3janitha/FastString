@@ -9,7 +9,6 @@ set(CMAKE_CXX_EXTENSIONS NO)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 if (MSVC)
-    # warning level 4 and all warnings as errors
     # add_compile_options(/W4 /WX)
     add_compile_options(/wd2220)
     #add_compile_definitions(FIXED_SIZE_STRING_DISABLE_IOSTREAM)
