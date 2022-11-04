@@ -11,6 +11,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 if (MSVC)
     # add_compile_options(/W4 /WX)
     add_compile_options(/wd2220)
+    set(CMAKE_CXX_FLAGS "-O3")
     #add_compile_definitions(FIXED_SIZE_STRING_DISABLE_IOSTREAM)
 else()
     # lots of warnings and all warnings as errors
