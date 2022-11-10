@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fixed_size_str.h>
+#include <FastString.h>
 #include <assert.h>
 
 int main()

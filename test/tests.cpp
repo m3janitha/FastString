@@ -1,4 +1,4 @@
-#include <fixed_size_str.h>
+#include <FastString.h>
 #include <array>
 
 #include <gtest/gtest.h>

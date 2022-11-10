@@ -1,8 +1,8 @@
-# fixed_size_string
-**Fast, in stack, fixed size** string implementation with **constexpr noexcept** constructors and accessors. **fixed_size_string** improves **memory locality and latency** of strings by avoiding heap allocations.
+# FastString
+**Fast, in stack, fixed size** string implementation with **constexpr noexcept** constructors and accessors. **FastString** improves **memory locality and latency** of strings by avoiding heap allocations.
 
 ## Abstract
-**std::string** allocates heap memory for strings not qualified for **SSO** (small string optimization) and reduces memory locality. **fixed_size_string** is a thin wrapper around a plain char array with **constexpr noexcept** constructors and accessors for fast, in stack string manipulation. **fixed_size_string** is a fast and efficient alternative for **std::string** or **plain char arrays** in low latency applications and can be easily used with **std::string_view** for further operations.
+**std::string** allocates heap memory for strings not qualified for **SSO** (small string optimization) and reduces memory locality. **FastString** is a thin wrapper around a plain char array with **constexpr noexcept** constructors and accessors for fast, in stack string manipulation. **FastString** is a fast and efficient alternative for **std::string** or **plain char arrays** in low latency applications and can be easily used with **std::string_view** for further operations.
 
 ## Author
 [Janitha Meedeniya](https://www.linkedin.com/in/janitha-meedeniya) 
@@ -19,7 +19,35 @@ git submodule update --init --recursive
 mkdir build && cd build && cmake .. && make
 ```
 
-## Performance Analysis
+## Performance
+* Compiler version:MSVC 19.28.29334.0
+* Using Google Benchmark (Tests are included in repo)
+```cpp
+Run on (8 X 1498 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x4)
+  L1 Instruction 32 KiB (x4)
+  L2 Unified 512 KiB (x4)
+  L3 Unified 8192 KiB (x1)
+--------------------------------------------------------------------------------------
+Benchmark                                            Time             CPU   Iterations
+--------------------------------------------------------------------------------------
+BM_std_string_from_const_char                      498 ns          148 ns      5600000
+BM_fixed_size_str_from_const_char                 46.9 ns         16.3 ns     34461538
+BM_std_string_from_constexpr_const_char            500 ns          153 ns      4480000
+BM_fixed_size_str_from_constexpr_const_char       47.8 ns         16.7 ns     37333333
+BM_std_string_from_buffer                          505 ns          158 ns      5146257
+BM_fixed_size_str_from_buffer                     49.6 ns         14.2 ns     37333333
+BM_std_string_from_constexpr_buffer                503 ns          188 ns      4072727
+BM_fixed_size_str_from_constexpr_buffer           50.1 ns         12.6 ns     44800000
+BM_std_string_from_const_char_large_str           1048 ns          384 ns      2240000
+BM_fixed_size_str_from_const_char_large_str        153 ns         50.0 ns     10000000
+BM_std_string_append                               190 ns         62.5 ns     10000000
+BM_fixed_size_str_append                           164 ns         56.2 ns     14451613
+BM_std_string_append_large                        50.0 ns         16.4 ns     64000000
+BM_fixed_size_str_append_large                    61.5 ns         23.4 ns     37333333
+```
+
 * Compiler version: **x86-64 gcc-trunk**
 * Test scenario - Function creates a string from a given char pointer and return length of the created string. Length is returned and assigned to a volatile variable to avoid compiler optimizing out the construction of the variable.
 * Test code 
@@ -36,7 +64,7 @@ mkdir build && cd build && cmake .. && make
             volatile auto x = f(str);
         }
         ```
-    * Using **fixed_size_string**. Note use of **constexpr** and **noexcept**
+    * Using **FastString**. Note use of **constexpr** and **noexcept**
         ```cpp
         constexpr auto f(const char* str) noexcept
         {
@@ -50,8 +78,8 @@ mkdir build && cd build && cmake .. && make
             volatile auto x = f(str);
         }
         ```        
-* Comparison of compiler output between **std::string** and **fixed_size_string** using https://godbolt.org/
-	![image](https://github.com/m3janitha/fixed_size_string/blob/master/compiler_analysis.jpg)
+* Comparison of compiler output between **std::string** and **FastString** using https://godbolt.org/
+	![image](https://github.com/m3janitha/FastString/blob/master/compiler_analysis.jpg)
 
 ## Usage
 Refer to below example code

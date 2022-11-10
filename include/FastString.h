@@ -3,9 +3,7 @@
 #include <string_view>
 #include <algorithm>
 #include <string>
-#ifndef FIXED_SIZE_STRING_DISABLE_IOSTREAM
 #include <ostream>
-#endif
 
 namespace fss
 {
@@ -136,13 +134,11 @@ namespace fss
 		rhs.swap(lhs);
 	}
 
-#ifndef FIXED_SIZE_STRING_DISABLE_IOSTREAM
 	template <class CharT, std::size_t max_length, class Traits = std::char_traits<CharT>>
 	inline std::basic_ostream<CharT, Traits> &operator<<(std::basic_ostream<CharT, Traits> &os, const basic_str<CharT, max_length> &str)
 	{
 		return os << str.c_str();
 	}
-#endif
 
 	template <std::size_t max_length>
 	using fixed_size_str = basic_str<char, max_length>;
