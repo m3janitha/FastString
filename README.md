@@ -15,14 +15,13 @@
 
 ## Build
 ```console
-git submodule update --init --recursive
 mkdir build && cd build && cmake .. && make
 ```
 
 ## Performance
 * Compiler version:MSVC 19.28.29334.0
 * Using Google Benchmark (Tests are included in repo)
-```cpp
+```console
 Run on (8 X 1498 MHz CPU s)
 CPU Caches:
   L1 Data 48 KiB (x4)
