@@ -1,7 +1,7 @@
 #include <iostream>
 #include <FastString.h>
 #include <assert.h>
-#inlcude <cstdint>
+#include <cstdint>
 
 int main()
 {
