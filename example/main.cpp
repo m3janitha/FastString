@@ -1,6 +1,7 @@
 #include <iostream>
 #include <FastString.h>
 #include <assert.h>
+#include <cstdint>
 
 int main()
 {

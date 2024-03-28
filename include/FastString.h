@@ -4,12 +4,16 @@
 #include <algorithm>
 #include <string>
 #include <ostream>
+#include <cstdint>
 
 namespace fss
 {
-	template <class CharT, std::size_t max_length, class Traits = std::char_traits<CharT>>
+	template <class CharT, std::size_t max_length, class SizeType = std::size_t, class Traits = std::char_traits<CharT>>
 	class basic_str
 	{
+	
+	static_assert(SizeType(-1) >= max_length);
+
 	public:
 		constexpr basic_str() noexcept = default;
 
@@ -124,7 +128,7 @@ namespace fss
 			buffer_[active_length_] = '\0';
 		}
 
-		std::size_t active_length_{0};
+		SizeType active_length_{0};
 		CharT buffer_[max_length + 1]{};
 	};
 
