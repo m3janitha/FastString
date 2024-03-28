@@ -74,15 +74,14 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --build-config ${{ matrix.build_type }}
 
-    - name: Benchmark
+    - name: Benchmark on Windows
+      if: startsWith(matrix.os, 'windows')
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: |
-         if [ "$RUNNER_OS" == "Linux" ]; then
-              cd benchmark && ./benchmark_test
-         elif [ "$RUNNER_OS" == "Windows" ]; then
-              cd benchmark && benchmark_test
-         else
-              echo "$RUNNER_OS not supported"
-              exit 1
-         fi
+      run: cd benchmark && benchmark_test.exe
+
+    - name: Benchmark on Linux
+      if: startsWith(matrix.os, 'windows') != true
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      shell: bash
+      run: cd benchmark && ./benchmark_test
             
