@@ -8,7 +8,7 @@
 
 static void BM_std_string_from_const_char(benchmark::State& state) 
 {
-  const char* str = "Hello World!";
+  constexpr const char* str = "Hello World!";
   for (auto _ : state) 
   {
         std::string a{str};
@@ -20,10 +20,10 @@ BENCHMARK(BM_std_string_from_const_char);
 
 static void BM_fixed_size_str_from_const_char(benchmark::State& state) 
 {
-  const char* str = "Hello World!";
+  constexpr const char* str = "Hello World!";
   for (auto _ : state) 
   {
-        fss::fixed_size_str<15> a{str};
+        constexpr fss::fixed_size_str<15> a{str};
         benchmark::DoNotOptimize(a);
   }
 }

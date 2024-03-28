@@ -76,9 +76,9 @@ jobs:
 
     - name: Benchmark
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: |
-        if [ ${{ matrix.os }} == "windows-latest" ]; then
-          cd benchmark && benchmark_test
-        else
-          cd benchmark && ./benchmark_test
-         fi
+      - if: matrix.os == 'ubuntu-latest'
+          run: |
+            cd benchmark && ./benchmark_test
+      - if: matrix.os == 'windows-latest'
+          run: |
+            cd benchmark && benchmark_test
