@@ -6,7 +6,7 @@ int main()
 {
     /* define types */
     using string8 = fss::fixed_size_str<7>;
-    using string64 = fss::fixed_size_str<63>;
+    //using string64 = fss::fixed_size_str<63>;
 
     /* default construction */
     constexpr string8 a{};
@@ -35,7 +35,8 @@ int main()
 
     /* using with string view */
     constexpr const string8 e{ "abcdefghij", 10 };      // truncated. e is "abcdefg";
-    constexpr auto e_sub_str = e.str().substr(0, 2);    // e_sub_str is "ab"
+    //constexpr auto e_sub_str = e.str().substr(0, 2);    // e_sub_str is "ab"
+    auto e_sub_str = e.str().substr(0, 2);    // e_sub_str is "ab"
     constexpr auto e_length = e.length();               // e_length is 7
     std::cout << e_length << std::endl;
 
@@ -92,7 +93,8 @@ int main()
     };
 
     constexpr test_struct t;
-    constexpr const auto t_a = t.get_c();
+    //constexpr const auto t_a = t.get_c();
+    const auto t_a = t.get_c();
 
     /* swap */
     l.swap(k);                                          // l is "xyz" and k is "34"

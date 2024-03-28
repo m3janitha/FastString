@@ -18,6 +18,7 @@ else()
     message("setting CMAKE_CXX_FLAGS")
     set(CMAKE_BUILD_TYPE Release)
     set(CMAKE_CXX_FLAGS "-O3")
+    set(CMAKE_CXX_FLAGS "-Wno-unused-but-set-variable")
 endif()
 
 include(FetchContent)

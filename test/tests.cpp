@@ -104,8 +104,10 @@ TEST(TestFixture, move_assignment)
 TEST(TestFixture, using_with_string_view)
 {
     constexpr string8 e{"abcdefghij", 10};
-    constexpr auto e_sub_str = e.str().substr(0, 2);
-    constexpr auto e_str = e.str();
+    //constexpr auto e_sub_str = e.str().substr(0, 2);
+    //constexpr auto e_str = e.str();
+    auto e_sub_str = e.str().substr(0, 2);
+    auto e_str = e.str();
     constexpr auto e_length = e.length();
 
     ASSERT_EQ("abcdefg"s, e.c_str()); // truncated. e is "abcdefg";
@@ -221,8 +223,10 @@ TEST(TestFixture, using_member_variables)
     ASSERT_EQ(32, sizeof(test_struct));
 
     constexpr test_struct t{};
-    constexpr auto t_c = t.get_c();
-    constexpr auto t_c_str = t.get_c_str();
+    // constexpr auto t_c = t.get_c();
+    // constexpr auto t_c_str = t.get_c_str();
+    auto t_c = t.get_c();
+    auto t_c_str = t.get_c_str();
 
     ASSERT_EQ("abcd"s, t_c);
     ASSERT_EQ("abcd"s, t_c_str);

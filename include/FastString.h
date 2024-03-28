@@ -41,7 +41,7 @@ namespace fss
 
 		constexpr std::basic_string_view<CharT, Traits> str() const noexcept
 		{
-			return std::basic_string_view<CharT, Traits>(buffer_, active_length_);
+			return std::basic_string_view<CharT, Traits>(c_str(), active_length_);
 		}
 
 		constexpr auto length() const noexcept { return active_length_; }
