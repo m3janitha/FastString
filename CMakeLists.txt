@@ -8,17 +8,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS NO)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
-if (MSVC)
+# lots of warnings and all warnings as errors
+message("setting CMAKE_CXX_FLAGS")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+set(CMAKE_BUILD_TYPE Release)
+    
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    message("setting MSVC CMAKE_CXX_FLAGS")
     # add_compile_options(/W4 /WX)
     add_compile_options(/wd2220)
-    set(CMAKE_CXX_FLAGS "-O3")
     #add_compile_definitions(FastString_DISABLE_IOSTREAM)
-else()
-    # lots of warnings and all warnings as errors
-    message("setting CMAKE_CXX_FLAGS")
-    set(CMAKE_BUILD_TYPE Release)
-    set(CMAKE_CXX_FLAGS "-O3")
-    set(CMAKE_CXX_FLAGS "-Wno-unused-but-set-variable")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    message("setting GCC CMAKE_CXX_FLAGS")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-but-set-variable")
+
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "clang")
+    message("setting Clang CMAKE_CXX_FLAGS")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 endif()
 
 include(FetchContent)
