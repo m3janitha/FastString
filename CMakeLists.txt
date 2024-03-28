@@ -23,7 +23,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-but-set-variable")
 
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "lang++")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "clang++")
     message("setting Clang CMAKE_CXX_FLAGS")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
