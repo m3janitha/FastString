@@ -28,6 +28,8 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "clang++")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+else()
+message("setting ${CMAKE_CXX_COMPILER_ID} CMAKE_CXX_FLAGS")
 endif()
 
 include(FetchContent)
