@@ -76,9 +76,13 @@ jobs:
 
     - name: Benchmark
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      - if: matrix.os == 'ubuntu-latest'
-          run: |
-            cd benchmark && ./benchmark_test
-      - if: matrix.os == 'windows-latest'
-          run: |
-            cd benchmark && benchmark_test
+      run: |
+         if [ "$RUNNER_OS" == "Linux" ]; then
+              cd benchmark && ./benchmark_test
+         elif [ "$RUNNER_OS" == "Windows" ]; then
+              cd benchmark && benchmark_test
+         else
+              echo "$RUNNER_OS not supported"
+              exit 1
+         fi
+            
