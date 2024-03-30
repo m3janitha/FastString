@@ -78,7 +78,7 @@ jobs:
       if: startsWith(matrix.os, 'windows')
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       shell: pwsh
-      run: cd benchmark/Release && echo %cd% && dir && benchmark_test
+      run: cd benchmark/Release && echo %cd% && dir && benchmark_test.exe
 
     - name: Benchmark on Linux
       if: startsWith(matrix.os, 'windows') != true
