@@ -84,5 +84,5 @@ jobs:
       if: startsWith(matrix.os, 'windows') != true
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       shell: bash
-      run: cd benchmark && ./benchmark_test
+      run: cd benchmark && ./benchmark_test && lscpu
             
